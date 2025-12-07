@@ -27,6 +27,21 @@ chmod +x install.sh
 ./install.sh
 ```
 
+### Android (Termux)
+
+You can run PokéSplash on your phone!
+
+1. **Build for Android:**
+   ```powershell
+   .\build-termux.ps1
+   ```
+2. **Transfer** the `pokesplash-android` binary to your phone.
+3. **Run in Termux:**
+   ```bash
+   chmod +x pokesplash-android
+   ./pokesplash-android
+   ```
+
 ### From Binary (Manual)
 
 Download the latest release and add it to your PATH.
