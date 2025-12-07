@@ -12,7 +12,22 @@
 
 ## Installation
 
-### From Binary (Easy)
+### Quick Install (Script)
+
+**Windows (PowerShell):**
+
+```powershell
+.\install.ps1
+```
+
+**Linux/macOS:**
+
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+### From Binary (Manual)
 
 Download the latest release and add it to your PATH.
 
