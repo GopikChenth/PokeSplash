@@ -1,0 +1,15 @@
+# Binaries
+*.exe
+*.dll
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Documentation artifacts (User request)
+*.md
+!README.md
+
+# IDEs
+.vscode/
+.idea/

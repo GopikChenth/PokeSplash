@@ -1,0 +1,57 @@
+# PokéSplash ⚡
+
+**Ditch the boring black screen!** PokéSplash greets you with a wild Pokémon in colorful retro style every time you open your terminal. It loads instantly, so you’re never waiting to code. From cute starters to epic legendaries, your command line just became a mini adventure. Catch 'em all while you work!
+
+## Features
+
+- ⚡ **Instant startup** (<3ms) — perfect for shell profiles
+- 🎨 **898 Pokémon** with high-quality 24-bit ANSI colors
+- 🎲 **Random** encounter on every terminal launch
+- 📦 **Tiny binary** (~7MB) with zero dependencies
+- 💻 **Cross-platform** (Windows, Linux, macOS)
+
+## Installation
+
+### From Binary (Easy)
+
+Download the latest release and add it to your PATH.
+
+### From Source (Go)
+
+```bash
+go install github.com/GopikChenth/PokeSplash@latest
+```
+
+## Usage
+
+Run it directly:
+
+```bash
+pokesplash
+```
+
+Or with flags:
+
+```bash
+pokesplash --pokemon mewtwo    # Summon a legendary
+pokesplash --pokemon magikarp  # Splash!
+pokesplash --list              # See the Pokédex
+```
+
+### Add to Terminal Startup
+
+**PowerShell (`$PROFILE`):**
+
+```powershell
+pokesplash
+```
+
+**Bash/Zsh (`.bashrc` / `.zshrc`):**
+
+```bash
+pokesplash
+```
+
+## License
+
+MIT
