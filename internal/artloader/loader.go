@@ -12,22 +12,31 @@ import (
 //go:embed ascii/*
 var asciiFS embed.FS
 
-// GetRandomArt returns a random Pokémon ASCII art
-func GetRandomArt() (string, error) {
+// GetRandomArt returns random Pokémon ASCII art and its name
+func GetRandomArt() (string, string, error) {
 	files, err := listArtFiles()
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	if len(files) == 0 {
-		return "", fmt.Errorf("no art files found")
+		return "", "", fmt.Errorf("no art files found")
 	}
 
 	// Seed random number generator
 	rand.Seed(time.Now().UnixNano())
 	randomFile := files[rand.Intn(len(files))]
 
-	return readArtFile(randomFile)
+	art, err := readArtFile(randomFile)
+	if err != nil {
+		return "", "", err
+	}
+
+	// Extract name from filename (e.g., "ascii/pikachu.ans" -> "pikachu")
+	name := strings.TrimPrefix(randomFile, "ascii/")
+	name = strings.TrimSuffix(name, ".ans")
+
+	return art, name, nil
 }
 
 // GetArt returns the ASCII art for a specific Pokémon

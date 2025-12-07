@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"os"
 	"runtime"
+	"strings"
 	"syscall"
 	"unsafe"
 
 	"github.com/gopik/pokesplash/internal/artloader"
+	"github.com/gopik/pokesplash/internal/pokedex"
 )
 
 func init() {
@@ -51,10 +53,12 @@ func main() {
 	}
 
 	var art string
+	var selected string // Variable to store the name of the selected Pokémon
 	var err error
 
 	// Handle specific Pokémon mode
 	if *pokemonName != "" {
+		selected = *pokemonName
 		art, err = artloader.GetArt(*pokemonName)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
@@ -63,7 +67,7 @@ func main() {
 		}
 	} else {
 		// Default: random mode
-		art, err = artloader.GetRandomArt()
+		art, selected, err = artloader.GetRandomArt() // Get the name of the random Pokémon
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error getting random Pokémon: %v\n", err)
 			os.Exit(1)
@@ -72,4 +76,27 @@ func main() {
 
 	// Print the art
 	fmt.Print(art)
+
+	// Display metadata
+	pInfo, found := pokedex.GetPokemon(selected)
+
+	// Fallback for names with dashes or different formatting (e.g. mr-mime vs Mr. Mime)
+	if !found {
+		// Simple heuristic: try removing dashes or replacing with spaces
+		altName := strings.ReplaceAll(selected, "-", " ")
+		pInfo, found = pokedex.GetPokemon(altName)
+	}
+
+	if found {
+		gen := pokedex.GetGeneration(pInfo.ID)
+		weaknesses := pokedex.GetWeaknesses(pInfo.Type)
+
+		fmt.Printf("\n")
+		fmt.Printf(" Name:      %s (#%d)\n", pInfo.Name.English, pInfo.ID)
+		fmt.Printf(" Type:      %s\n", strings.Join(pInfo.Type, " / "))
+		fmt.Printf(" Gen:       %d\n", gen)
+		fmt.Printf(" Weakness:  %s\n", strings.Join(weaknesses, ", "))
+		fmt.Printf(" Info:      %s\n", pInfo.Description)
+		fmt.Printf("\n")
+	}
 }
